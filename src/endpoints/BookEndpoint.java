@@ -11,6 +11,8 @@ import Encrypters.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
+import static Encrypters.Crypter.encryptDecryptXOR;
+
 // The Java class will be hosted at the URI path "/Book"
 /**
  * Endpoint klasse indeholder alle bog-endpoints. Klassen står for kald af metoder fra controller-klasse
@@ -44,7 +46,7 @@ public class BookEndpoint {
         if (controller.getBooks()!=null) {
             return Response
                     .status(200)
-                    .entity(new Gson().toJson(Crypter.encryptDecryptXOR(new Gson().toJson(controller.getBooks()))))
+                    .entity((Crypter.encryptDecryptXOR(new Gson().toJson(controller.getBooks()))))
                     .build();
         }
         else {
@@ -68,7 +70,7 @@ public class BookEndpoint {
         if (controller.getBook(bookId)!=null) {
             return Response
                     .status(200)
-                    .entity(new Gson().toJson(Crypter.encryptDecryptXOR(new Gson().toJson(controller.getBook(bookId)))))
+                    .entity((Crypter.encryptDecryptXOR(new Gson().toJson(controller.getBook(bookId)))))
                     .build();
         }
         else {
@@ -101,7 +103,7 @@ public class BookEndpoint {
 
             if (controller.getBook(id) != null) {
                 String s = new Gson().fromJson(data,String.class);
-                String decrypt = Crypter.encryptDecryptXOR(s);
+                String decrypt = encryptDecryptXOR(s);
                 if (controller.editBook(id, decrypt)) {
                     return Response
                             .status(200)

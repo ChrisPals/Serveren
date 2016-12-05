@@ -34,7 +34,7 @@ public class UsersEndpoint  {
             if (controller.getUsers() != null) {
                 return Response
                         .status(200)
-                        .entity(new Gson().toJson(Crypter.encryptDecryptXOR(new Gson().toJson(controller.getUsers()))))
+                        .entity((Crypter.encryptDecryptXOR(new Gson().toJson(controller.getUsers()))))
                         .build();
             } else {
                 return Response
@@ -58,7 +58,7 @@ public class UsersEndpoint  {
             if (controller.getUser(userId)!=null) {
                 return Response
                         .status(200)
-                        .entity(new Gson().toJson(Crypter.encryptDecryptXOR(new Gson().toJson(controller.getUser(userId)))))
+                        .entity((Crypter.encryptDecryptXOR(new Gson().toJson(controller.getUser(userId)))))
                         .build();
             }
             return Response
